@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ModalUpdateAndEditUser from "./modal-update-edit";
+import TableCustom from "@/components/custom/table-custom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,6 +37,8 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [openModalUpdateAndEditUser, setOpenModalUpdateAndEditUser] =
+    useState(false);
 
   const table = useReactTable({
     data,
@@ -51,6 +55,10 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const handleAddNewUser = () => {
+    setOpenModalUpdateAndEditUser(true);
+  };
+
   return (
     <div>
       <div className="flex items-center py-4 justify-between">
@@ -62,57 +70,10 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button>Thêm mới</Button>
+        <Button onClick={handleAddNewUser}>Thêm mới</Button>
       </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  Không có dữ liệu
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+        <TableCustom table={table} columns={columns} />
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
@@ -131,6 +92,12 @@ export function DataTable<TData, TValue>({
         >
           Next
         </Button>
+      </div>
+      <div>
+        <ModalUpdateAndEditUser
+          open={openModalUpdateAndEditUser}
+          onOpenChange={setOpenModalUpdateAndEditUser}
+        />
       </div>
     </div>
   );

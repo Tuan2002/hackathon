@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { signOut } from "next-auth/react"
-import Link from "next/link"
+import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 import {
   DropdownMenu,
@@ -11,16 +11,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface UserNavProps {
   user: {
-    name?: string | null
-    email?: string | null
-    image?: string | null
-  }
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
 }
 
 export function UserNav({ user }: UserNavProps) {
@@ -29,13 +29,13 @@ export function UserNav({ user }: UserNavProps) {
         .split(" ")
         .map((n) => n[0])
         .join("")
-    : "U"
+    : "U";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-10 w-10">
             <AvatarImage src={user.image || ""} alt={user.name || "User"} />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -45,26 +45,31 @@ export function UserNav({ user }: UserNavProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard">Trang quản trị</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard/profile">Profile</Link>
+            <Link href="/dashboard/profile">Trang cá nhân</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard/settings">Settings</Link>
+            <Link href="/dashboard/settings">Cài đặt</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onSelect={() => signOut({ callbackUrl: "/" })}>
-          Log out
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onSelect={() => signOut({ callbackUrl: "/" })}
+        >
+          Đăng xuất
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

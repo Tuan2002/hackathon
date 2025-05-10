@@ -26,6 +26,8 @@ export default async function UsersPage() {
         </p>
       </div>
       <DataTable columns={columns} data={formattedUsers || []} />
+
+      {/* Modal add new user */}
     </div>
   );
 }

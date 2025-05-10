@@ -13,14 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  createdAt: Date;
-};
+import { User } from "@/types/user.type";
 
 export const columns: ColumnDef<User>[] = [
   {

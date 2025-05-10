@@ -16,7 +16,7 @@ export default async function DashboardLayout({
       <header className="sticky top-0 z-40 border-b bg-background px-5">
         <div className="container flex h-16 items-center justify-between py-4">
           <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold">Dashboard</h1>
+            <h1 className="text-xl font-bold">Trang quản trị</h1>
           </div>
           <UserNav user={user} />
         </div>
