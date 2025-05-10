@@ -1,6 +1,6 @@
-export type ActionrResponse = {
-    success: boolean;
-    message?: string;
-    data?: any;
-    error?: string;
-}
+export type ActionResponse<T> = {
+  success: boolean;
+  message?: string;
+  data?: T;
+  error?: string;
+};

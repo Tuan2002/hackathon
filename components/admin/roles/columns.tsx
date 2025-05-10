@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import type { ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,46 +11,60 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 export type Role = {
-  id: string
-  name: string
-  description: string
-  userCount: number
-  createdAt: Date
-}
+  id: string;
+  name: string;
+  description: string;
+  userCount: number;
+  createdAt: Date;
+};
 
 export const columns: ColumnDef<Role>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: () => <div className="text-center">Tên vai trò</div>,
     cell: ({ row }) => {
-      const name = row.getValue("name") as string
-      return <Badge variant={name === "admin" ? "destructive" : "secondary"}>{name}</Badge>
+      const name = row.getValue("name") as string;
+      return (
+        <div className="flex items-center justify-center space-x-2">
+          <Badge variant={name === "admin" ? "destructive" : "secondary"}>
+            {name}
+          </Badge>
+        </div>
+      );
     },
   },
   {
     accessorKey: "description",
-    header: "Description",
+    header: () => <div className="text-center">Mô tả</div>,
+    cell: ({ row }) => {
+      const description = row.getValue("description") as string;
+      return <div className="text-center">{description || "N/A"}</div>;
+    },
   },
   {
     accessorKey: "userCount",
-    header: "Users",
+    header: () => <div className="text-center">Số người dùng</div>,
+    cell: ({ row }) => {
+      const userCount = row.getValue("userCount") as number;
+      return <div className="text-center">{userCount}</div>;
+    },
   },
   {
     accessorKey: "createdAt",
-    header: "Created At",
+    header: () => <div className="text-center">Ngày tạo</div>,
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"))
-      return <div>{date.toLocaleDateString()}</div>
+      const date = new Date(row.getValue("createdAt"));
+      return <div className="text-center">{date.toLocaleDateString()}</div>;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const role = row.original
+      const role = row.original;
 
       return (
         <DropdownMenu>
@@ -61,14 +75,20 @@ export const columns: ColumnDef<Role>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(role.id)}>Copy role ID</DropdownMenuItem>
+            <DropdownMenuLabel>Tác vụ</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(role.id)}
+            >
+              Sao chép ID
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit role</DropdownMenuItem>
-            <DropdownMenuItem className="text-destructive">Delete role</DropdownMenuItem>
+            <DropdownMenuItem>Cập nhật</DropdownMenuItem>
+            <DropdownMenuItem className="text-destructive">
+              Xoá bỏ
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

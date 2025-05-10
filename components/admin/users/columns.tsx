@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import type { ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,21 +11,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 export type User = {
-  id: string
-  name: string
-  email: string
-  role: string
-  createdAt: Date
-}
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  createdAt: Date;
+};
 
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Họ và tên",
   },
   {
     accessorKey: "email",
@@ -33,24 +33,28 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: "Phân quyền",
     cell: ({ row }) => {
-      const role = row.getValue("role") as string
-      return <Badge variant={role === "admin" ? "destructive" : "secondary"}>{role}</Badge>
+      const role = row.getValue("role") as string;
+      return (
+        <Badge variant={role === "admin" ? "destructive" : "secondary"}>
+          {role}
+        </Badge>
+      );
     },
   },
   {
     accessorKey: "createdAt",
-    header: "Created At",
+    header: "Ngày tạo",
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"))
-      return <div>{date.toLocaleDateString()}</div>
+      const date = new Date(row.getValue("createdAt"));
+      return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -61,15 +65,21 @@ export const columns: ColumnDef<User>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id)}>Copy user ID</DropdownMenuItem>
+            <DropdownMenuLabel>Tác vụ</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(user.id)}
+            >
+              Sao chép ID
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit user</DropdownMenuItem>
-            <DropdownMenuItem>Change role</DropdownMenuItem>
-            <DropdownMenuItem className="text-destructive">Delete user</DropdownMenuItem>
+            <DropdownMenuItem>Cập nhật</DropdownMenuItem>
+            <DropdownMenuItem>Đổi quyền</DropdownMenuItem>
+            <DropdownMenuItem className="text-destructive">
+              Xoá bỏ
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];
