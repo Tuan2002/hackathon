@@ -2,17 +2,13 @@ import { columns } from "@/components/admin/users/columns"
 import { DataTable } from "@/components/admin/users/data-table"
 import { requireAdmin } from "@/lib/auth-utils"
 import { db } from "@/lib/db"
+import { getUsersAsync } from "@/services/users.action"
 
 export default async function UsersPage() {
   await requireAdmin()
+  const response = await getUsersAsync()
 
-  const users = await db.user.findMany({
-    include: {
-      role: true,
-    },
-  })
-
-  const formattedUsers = users.map((user) => ({
+  const formattedUsers = response.data?.map((user) => ({
     id: user.id,
     name: user.name || "N/A",
     email: user.email || "N/A",

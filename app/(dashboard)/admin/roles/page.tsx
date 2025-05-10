@@ -2,21 +2,13 @@ import { DataTable } from "@/components/admin/roles/data-table"
 import { columns } from "@/components/admin/roles/columns"
 import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/auth-utils"
+import { getRolesAsync } from "@/services/roles.action"
 
 export default async function RolesPage() {
   await requireAdmin()
 
-  const roles = await db.role.findMany({
-    include: {
-      _count: {
-        select: {
-          users: true,
-        },
-      },
-    },
-  })
-
-  const formattedRoles = roles.map((role) => ({
+  const response = await getRolesAsync()
+  const formattedRoles = response.data?.map((role) => ({
     id: role.id,
     name: role.name,
     description: role.description || "N/A",
