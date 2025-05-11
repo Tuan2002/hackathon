@@ -1,6 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -10,7 +10,8 @@ export default function Home() {
           Welcome to <span className="text-primary">Next.js App Template</span>
         </h1>
         <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-xl">
-          A complete starter template with Next.js, Auth.js, Prisma, MongoDB, and shadcn/ui
+          A complete starter template with Next.js, Auth.js, Prisma, MongoDB,
+          and shadcn/ui
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-4">
@@ -25,18 +26,23 @@ export default function Home() {
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <h3 className="text-xl font-bold">Authentication</h3>
           <p className="text-muted-foreground">
-            Multiple authentication providers including email/password, Google, and GitHub
+            Multiple authentication providers including email/password, Google,
+            and GitHub
           </p>
         </div>
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <h3 className="text-xl font-bold">Role-Based Access</h3>
-          <p className="text-muted-foreground">Different dashboards and features based on user roles</p>
+          <p className="text-muted-foreground">
+            Different dashboards and features based on user roles
+          </p>
         </div>
         <div className="rounded-lg border bg-card p-6 shadow-sm">
           <h3 className="text-xl font-bold">Modern Stack</h3>
-          <p className="text-muted-foreground">Built with Next.js, TanStack Query, Prisma, and shadcn/ui</p>
+          <p className="text-muted-foreground">
+            Built with Next.js, TanStack Query, Prisma, and shadcn/ui
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -7,18 +7,18 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { mainNavbarItems } from "@/constants/menuItems";
+import { UserNav } from "./dashboard/user-nav";
 
 export function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
-
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="container flex h-16 items-center justify-between space-x-4 sm:space-x-0">
+    <header className="fixed left-0 right-0 top-0 z-40 w-full border-b bg-background px-5">
+      <div className="flex h-16 items-center justify-between space-x-4 sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block">
-              Next.js App Template
+              Hackathon 2025
             </span>
           </Link>
           <nav className="hidden gap-6 md:flex">
@@ -41,9 +41,7 @@ export function Navbar() {
         <div className="flex items-center space-x-4">
           <ThemeToggle />
           {session ? (
-            <Button asChild>
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
+            <UserNav user={session.user} />
           ) : (
             <Button asChild>
               <Link href="/login">Login</Link>
