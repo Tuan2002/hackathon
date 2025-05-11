@@ -42,7 +42,7 @@ const ModalCustom = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild></DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[calc(100vh-100px)] pb-4">
+      <DialogContent className="sm:max-w-[600px] max-h-[calc(100vh-100px)] pb-4">
         <DialogHeader>
           <DialogTitle>
             {showHeader && (

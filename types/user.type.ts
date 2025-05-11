@@ -12,3 +12,10 @@ export type User = {
   createdAt: string;
   role: Role;
 };
+
+export type CreateAndUpdateUserRequest = {
+  name: string;
+  email: string;
+  image?: string;
+  roleId: string;
+};
